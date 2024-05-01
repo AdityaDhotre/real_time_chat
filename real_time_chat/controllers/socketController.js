@@ -21,7 +21,7 @@ wssSktr.on('connection', function connectionSktr(wsSktr) {
         clientSktr.send(messageSktr); // Send the message to other connected clients
       }
     });
-
+    // Author: Aditya Dhotre
     // Persist the message in the database for potential retrieval later
     try {
       const clientDbSktr = await poolSktr.connect(); // Connect to the database pool

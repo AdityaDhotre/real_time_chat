@@ -18,6 +18,7 @@ client.on('error', (error) => {
   console.error('Redis connection error:', error); // Log any errors during Redis connection
 });
 
+// Author: Aditya Dhotre
 // Function to generate a random secret key with desired length for JWT signing
 const generateSecretKey = () => {
   const secretKeyLength = 32; // Set the preferred length for the secret key
