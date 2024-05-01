@@ -1,3 +1,4 @@
+// Author: Aditya Dhotre
 const request = require('supertest'); // Import supertest for crafting HTTP requests in tests
 const app = require('../server'); // Import the server application being tested
 

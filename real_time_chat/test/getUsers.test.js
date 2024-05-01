@@ -18,3 +18,5 @@ describe('Get Users API', () => {
     });
   });
 });
+
+// Author: Aditya Dhotre

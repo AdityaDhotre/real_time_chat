@@ -1,28 +1,33 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const userRouter = require('./controllers/userController');
-const loginRouter = require('./controllers/loginController');
-const socketController = require('./controllers/socketController'); 
+// Author: Aditya Dhotre
 
-// Initialize a basic express server
+const express = require('express'); // Import Express for building the REST API
+const bodyParser = require('body-parser'); // Import middleware for parsing request bodies
+const userRouter = require('./controllers/userController'); // Import routes for user management
+const loginRouter = require('./controllers/loginController'); // Import routes for user login
+const socketController = require('./controllers/socketController'); // Import logic for handling WebSocket connections
+
+// Create an Express application instance
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// Apply middleware to parse request bodies:
+app.use(bodyParser.urlencoded({ extended: false })); // Handle URL-encoded form data
+app.use(bodyParser.json()); // Parse incoming JSON data
 
-// Use user and task routes
+// Mount user and login routes under specific API paths
 app.use('/api/users', userRouter);
 app.use('/api', loginRouter);
 
-// Upgrade HTTP server to handle WebSocket connections
-const server = app.listen(process.env.PORT || 3000, function() {
-    console.log(`Server is listening on http://localhost:${server.address().port}`);
+// Create an HTTP server using Express (can be replaced with a different HTTP server if needed)
+const server = app.listen(process.env.PORT || 3000, () => {
+  console.log(`Server listening on http://localhost:${server.address().port}`);
 });
 
-
-// Attach WebSocket server to the HTTP server
-server.on('upgrade', function upgrade(request, socket, head) {
-    socketController.handleUpgrade(request, socket, head, function done(ws) {
-        socketController.emit('connection', ws, request);
-    });
+// Enhance the HTTP server to handle WebSocket connections
+server.on('upgrade', (request, socket, head, done) => {
+  // Delegate WebSocket upgrade handling to a dedicated controller
+  socketController.handleUpgrade(request, socket, head, (ws) => {
+    // Emit a 'connection' event when a WebSocket connection is established
+    socketController.emit('connection', ws, request);
+    done(ws); // Signal successful upgrade to WebSocket
+  });
 });
