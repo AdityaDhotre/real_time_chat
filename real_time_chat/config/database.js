@@ -1,3 +1,5 @@
+// Author: Aditya Dhotre
+
 // Import the Pool class from the pg (PostgreSQL) library
 const { Pool } = require('pg');
 

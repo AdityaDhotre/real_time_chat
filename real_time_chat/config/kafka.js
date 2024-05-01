@@ -1,3 +1,5 @@
+// Author: Aditya Dhotre
+
 const { Kafka } = require('kafkajs'); // Import Kafka client for producer functionality
 
 // Create a Kafka producer instance with a descriptive client ID
@@ -5,6 +7,7 @@ const kafka = new Kafka({
   clientId: 'your-app-name', // Replace with your application's unique name
   brokers: ['localhost:9092'] // Array of Kafka broker addresses (may need modification)
 });
+
 
 const producer = kafka.producer(); // Create a producer for interacting with Kafka
 
